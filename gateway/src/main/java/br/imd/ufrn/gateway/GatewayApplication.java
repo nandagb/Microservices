@@ -18,7 +18,9 @@ public class GatewayApplication {
 		return builder.routes()
 			.route(p -> p
 				.path("/user")
-				.uri("http://localhost:8081"))
+				// .uri("http://localhost:8081")
+				.uri("lb://USER-SERVICE")
+			)
 			.build();
 	}
 
