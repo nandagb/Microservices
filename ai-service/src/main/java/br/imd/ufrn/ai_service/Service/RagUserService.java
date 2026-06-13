@@ -8,6 +8,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
 import br.imd.ufrn.ai_service.DAO.UsersDAO;
+import br.imd.ufrn.ai_service.Model.SearchResult;
 
 @Service
 public class RagUserService {
@@ -19,6 +20,12 @@ public class RagUserService {
         this.usersDAO = usersDAO;
         this.chatClient = chatClientBuilder.build();
         this.vectorStore = vectorStore;
+    }
+
+    public SearchResult getDetailsChatAnswer(String prompt) {
+        String closestMatch = usersDAO.findClosestMatch(prompt);
+        String answer = chatClient.prompt().user(closestMatch+prompt).call().content();
+        return new SearchResult(prompt, answer, closestMatch);
     }
 
     public String getChatAnswer(String prompt) {

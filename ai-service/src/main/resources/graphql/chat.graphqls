@@ -1,0 +1,14 @@
+type SearchResult {
+    pergunta: String
+    resposta: String
+}
+
+type Query {
+    chat(prompt: String!): String
+    userChat(prompt: String!): String
+    detailsUserChat(prompt: String!) :SearchResult
+}
+
+type Mutation {
+    addUsers: Boolean
+}

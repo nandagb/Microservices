@@ -17,8 +17,11 @@ public class GatewayApplication {
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
 			.route(p -> p
-				.path("/user")
-				// .uri("http://localhost:8081")
+				.path("/user/**")
+				.uri("lb://USER-SERVICE")
+			)
+			.route(p -> p
+				.path("/chat/**")
 				.uri("lb://USER-SERVICE")
 			)
 			.build();

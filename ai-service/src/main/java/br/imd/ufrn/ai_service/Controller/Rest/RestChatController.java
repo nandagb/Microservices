@@ -12,11 +12,11 @@ import br.imd.ufrn.ai_service.Service.RagUserService;
 
 @RestController
 @RequestMapping("chat")
-public class ChatController {
+public class RestChatController {
     private final ChatService chatService;
     private final RagUserService ragUserService;
 
-    public ChatController(ChatService chatService, RagUserService ragUserService) {
+    public RestChatController(ChatService chatService, RagUserService ragUserService) {
         this.chatService = chatService;
         this.ragUserService = ragUserService;
     }
