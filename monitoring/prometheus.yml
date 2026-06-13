@@ -16,3 +16,22 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['host.docker.internal:8761']
+
+
+
+### Comando prometheus
+# docker run -d `
+#   --name prometheus `
+#   -p 9090:9090 `
+#   -v "${PWD}\prometheus.yml:/etc/prometheus/prometheus.yml" `
+#   prom/prometheus
+
+### comando grafana
+# docker run -d `
+#   --name grafana `
+#   -p 3000:3000 `
+#   grafana/grafana
+
+### dados grafana
+# usuário: admin
+# senha: admin
