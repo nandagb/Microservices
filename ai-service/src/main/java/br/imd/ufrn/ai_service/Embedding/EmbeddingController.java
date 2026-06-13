@@ -40,7 +40,7 @@ public class EmbeddingController {
     @GetMapping("ollama-chat")
     public String getChatAnswer(@RequestParam String prompt) {
         System.out.println("Testando o Ollama chat service");
-        return memoryEmbeddingService.getChatAnswer(prompt);
+        return embeddingService.getChatAnswer(prompt);
     }
 
     @GetMapping("add-users")
@@ -50,6 +50,6 @@ public class EmbeddingController {
 
     @GetMapping("users")
     public String getEmbbedUserAnswer(@RequestParam String prompt) {
-        return embeddingService.findClosestMatch(prompt);
+        return embeddingService.getUsersChatAnswer(prompt);
     }
 }
