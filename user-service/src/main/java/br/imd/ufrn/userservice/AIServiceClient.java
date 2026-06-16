@@ -4,6 +4,8 @@ import org.springframework.graphql.client.HttpGraphQlClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import br.imd.ufrn.userservice.Model.SearchResult;
+
 @Service
 public class AIServiceClient {
     private final HttpGraphQlClient graphQlClient;
@@ -12,17 +14,49 @@ public class AIServiceClient {
         this.graphQlClient = graphQlClient;
     }
 
-    public String detailsUserChat(String prompt) {
+    public String chat(String prompt) {
+        return graphQlClient
+            .document("""
+                query chat($prompt: String!) {
+                    chat(prompt: $prompt)
+                }
+            """)
+            .variable("prompt", prompt)
+            .retrieve("chat")
+            .toEntity(String.class)
+            .block();
+    }
+
+    public SearchResult detailsUserChat(String prompt) {
         return graphQlClient
             .document("""
                 query detailsUserChat($prompt: String!) {
                     detailsUserChat(prompt: $prompt) {
-                        resposta
+                        prompt
+                        answer
+                        context
                     }
                 }
             """)
             .variable("prompt", prompt)
-            .retrieve("detailsUserChat.resposta")
+            .retrieve("detailsUserChat")
+            .toEntity(SearchResult.class)
+            .block();
+    }
+
+    public String contextUserChat(String prompt) {
+        return graphQlClient
+            .document("""
+                query detailsUserChat($prompt: String!) {
+                    detailsUserChat(prompt: $prompt) {
+                        prompt
+                        answer
+                        context
+                    }
+                }
+            """)
+            .variable("prompt", prompt)
+            .retrieve("detailsUserChat.context")
             .toEntity(String.class)
             .block();
     }

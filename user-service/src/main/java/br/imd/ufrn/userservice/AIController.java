@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.imd.ufrn.userservice.Model.SearchResult;
+
 @RestController
 @RequestMapping("chat")
 public class AIController {
@@ -14,15 +16,23 @@ public class AIController {
         this.aiServiceClient = aiServiceClient;
     }
 
+    @GetMapping("regular")
+    public String Chat(@RequestParam String prompt) {
+        return aiServiceClient.chat(prompt);
+    }
+
     @GetMapping("details-user")
-    public String detailsUserChat(@RequestParam String prompt) {
-        System.out.println("Executando chat details user no user-service");
+    public SearchResult detailsUserChat(@RequestParam String prompt) {
         return aiServiceClient.detailsUserChat(prompt);
+    }
+
+    @GetMapping("context-user")
+    public String promptUserChat(@RequestParam String prompt) {
+        return aiServiceClient.contextUserChat(prompt);
     }
 
     @GetMapping("user")
     public String userChat(@RequestParam String prompt) {
-        System.out.println("Executando chat user no user-service");
         return aiServiceClient.userChat(prompt);
     }
 }

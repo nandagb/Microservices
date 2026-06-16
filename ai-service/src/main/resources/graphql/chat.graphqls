@@ -1,6 +1,7 @@
 type SearchResult {
-    pergunta: String
-    resposta: String
+    prompt: String
+    answer: String
+    context: String
 }
 
 type Query {
