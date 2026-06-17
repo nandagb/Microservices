@@ -21,9 +21,19 @@ public class RestChatController {
         this.ragUserService = ragUserService;
     }
 
+    @GetMapping("dumb")
+    public String getDumbChatAnswer(@RequestParam String prompt) {
+        return chatService.getDumbChatAnswer(prompt);
+    }
+
     @GetMapping()
     public String getChatAnswer(@RequestParam String prompt) {
         return chatService.getChatAnswer(prompt);
+    }
+
+    @GetMapping("dumb-users")
+    public String getDumbEmbbedUserAnswer(@RequestParam String prompt) {
+        return ragUserService.getDumbChatAnswer(prompt);
     }
 
     @GetMapping("users")

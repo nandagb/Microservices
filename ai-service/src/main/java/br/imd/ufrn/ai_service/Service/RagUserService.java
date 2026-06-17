@@ -3,7 +3,12 @@ package br.imd.ufrn.ai_service.Service;
 import java.util.List;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.ChatMemoryRepository;
+import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,12 @@ public class RagUserService {
     private final UsersDAO usersDAO;
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
+
+    ChatMemoryRepository chatMemoryRepository = new InMemoryChatMemoryRepository();
+    ChatMemory chatMemory = MessageWindowChatMemory.builder()
+            .chatMemoryRepository(chatMemoryRepository)
+            .maxMessages(10)
+            .build();
 
     public RagUserService(UsersDAO usersDAO, ChatClient.Builder chatClientBuilder, VectorStore vectorStore) {
         this.usersDAO = usersDAO;
@@ -29,6 +40,18 @@ public class RagUserService {
     }
 
     public String getChatAnswer(String prompt) {
+        return chatClient.prompt()
+        .advisors(
+            QuestionAnswerAdvisor.builder(vectorStore).build(),
+            MessageChatMemoryAdvisor.builder(chatMemory).build()
+        )
+        .advisors(a ->
+            a.param(ChatMemory.CONVERSATION_ID, "usuario-1")
+        )
+        .user(prompt).call().content();
+    }
+
+    public String getDumbChatAnswer(String prompt) {
         return chatClient.prompt()
         .advisors(
             QuestionAnswerAdvisor
