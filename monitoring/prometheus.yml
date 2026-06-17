@@ -17,7 +17,10 @@ scrape_configs:
     static_configs:
       - targets: ['host.docker.internal:8761']
 
-
+  - job_name: 'ai-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8090']
 
 ### Comando prometheus
 # docker run -d `
