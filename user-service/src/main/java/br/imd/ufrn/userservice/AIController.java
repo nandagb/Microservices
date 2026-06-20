@@ -31,8 +31,8 @@ public class AIController {
         return aiServiceClient.contextUserChat(prompt);
     }
 
-    // @GetMapping("user")
-    // public String userChat(@RequestParam String prompt) {
-    //     return aiServiceClient.userChat(prompt);
-    // }
+    @GetMapping("user")
+    public String userChat(@RequestParam String prompt) {
+        return aiServiceClient.userChat(prompt);
+    }
 }
