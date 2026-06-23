@@ -1,5 +1,6 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 2s # Padrão é a cada 1 min
+  evaluation_interval: 2s # Padrão é a cada 1 min
 
 scrape_configs:
   - job_name: 'gateway'
@@ -21,6 +22,17 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     static_configs:
       - targets: ['host.docker.internal:8090']
+
+  - job_name: 'config-server'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8888']
+
+  # - job_name: 'prometheus'
+  #   static_configs:
+  #     - targets: ["host.docker.internal:9090"]
+  #       labels:
+  #         app: 'prometheus'
 
 ### Comando prometheus
 # docker run -d `
