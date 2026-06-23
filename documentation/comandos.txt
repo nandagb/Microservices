@@ -1,0 +1,7 @@
+Para rodar o user service em outra porta:
+mvn --% -Dspring-boot.run.arguments=--server.port=8082 spring-boot:run
+
+para rodar as instâncias do eureka:
+mvn --% -Dspring-boot.run.profiles=server1 spring-boot:run
+mvn --% -Dspring-boot.run.profiles=server2 spring-boot:run
+mvn --% -Dspring-boot.run.profiles=server3 spring-boot:run
