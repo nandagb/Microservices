@@ -1,10 +1,11 @@
-package br.imd.ufrn.userservice;
+package br.imd.ufrn.userservice.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.imd.ufrn.userservice.AIServiceClient;
 import br.imd.ufrn.userservice.Model.SearchResult;
 
 @RestController
