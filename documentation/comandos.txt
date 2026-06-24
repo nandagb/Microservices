@@ -5,3 +5,9 @@ para rodar as instâncias do eureka:
 mvn --% -Dspring-boot.run.profiles=server1 spring-boot:run
 mvn --% -Dspring-boot.run.profiles=server2 spring-boot:run
 mvn --% -Dspring-boot.run.profiles=server3 spring-boot:run
+
+Para acessar as configurações do user-service:
+http://localhost:8888/user-service/default
+
+Para atualizar o config do user-service em tempo de execução:
+curl.exe -X POST http://localhost:8081/actuator/refresh
