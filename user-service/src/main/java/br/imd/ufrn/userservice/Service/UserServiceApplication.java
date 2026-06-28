@@ -1,4 +1,4 @@
-package br.imd.ufrn.userservice;
+package br.imd.ufrn.userservice.Service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

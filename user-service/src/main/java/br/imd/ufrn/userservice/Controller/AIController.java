@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.imd.ufrn.userservice.AIServiceClient;
 import br.imd.ufrn.userservice.Model.SearchResult;
+import br.imd.ufrn.userservice.Service.AIServiceClient;
 
 @RestController
 @RequestMapping("chat")
