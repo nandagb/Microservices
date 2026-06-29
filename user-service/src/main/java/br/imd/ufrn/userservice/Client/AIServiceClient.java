@@ -1,4 +1,4 @@
-package br.imd.ufrn.userservice.Service;
+package br.imd.ufrn.userservice.Client;
 
 import org.springframework.graphql.client.HttpGraphQlClient;
 import org.springframework.stereotype.Service;

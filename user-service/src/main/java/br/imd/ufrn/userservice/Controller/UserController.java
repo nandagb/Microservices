@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.imd.ufrn.userservice.Client.NotificationServiceClient;
 import br.imd.ufrn.userservice.Exception.UserNotFoundException;
 import br.imd.ufrn.userservice.Model.User;
 import br.imd.ufrn.userservice.Repository.UserRepository;
@@ -20,9 +21,11 @@ import br.imd.ufrn.userservice.Repository.UserRepository;
 @RequestMapping("/user")
 public class UserController {
     private final UserRepository repository;
+    private final NotificationServiceClient notificationClient;
 
-    UserController(UserRepository repository) {
+    UserController(UserRepository repository, NotificationServiceClient notificationClient) {
         this.repository = repository;
+        this.notificationClient = notificationClient;
     }
 
     @GetMapping("/test")
@@ -37,7 +40,9 @@ public class UserController {
 
     @PostMapping("/add")
     User addUser(@RequestBody User user) {
-        return repository.save(user);
+        User savedUser = repository.save(user);
+        notificationClient.notifyUserCreated(savedUser.getName());
+        return savedUser;
     }
 
     @GetMapping("/{id}")

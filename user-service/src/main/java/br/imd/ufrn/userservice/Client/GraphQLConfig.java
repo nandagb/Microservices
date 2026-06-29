@@ -1,4 +1,4 @@
-package br.imd.ufrn.userservice;
+package br.imd.ufrn.userservice.Client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,12 +7,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class GraphQLConfig {
-
-    @Bean
-    @org.springframework.cloud.client.loadbalancer.LoadBalanced
-    WebClient.Builder webClientBuilder() {
-        return WebClient.builder();
-    }
 
     @Bean
     HttpGraphQlClient aiGraphQlClient( WebClient.Builder webClientBuilder ) {
