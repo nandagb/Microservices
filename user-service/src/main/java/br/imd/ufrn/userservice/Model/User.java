@@ -106,6 +106,4 @@ public class User {
     public String toString() {
         return "Usuário{" + "id=" + this.id + ", nome='" + this.name + '\'' + ", idade='" + this.age + '\'' + ", cidade='" + this.city + '\'' + ", nome da mãe='" + this.motherName + '\'' + ", nome do pai='" + this.fatherName + '\'' + '}';
     }
-
-
 }

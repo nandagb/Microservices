@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.imd.ufrn.ai_service.Context.UserData;
 import br.imd.ufrn.ai_service.Service.ChatService;
+import br.imd.ufrn.ai_service.Service.McpChatService;
 import br.imd.ufrn.ai_service.Service.RagUserService;
 
 @RestController
@@ -15,10 +16,12 @@ import br.imd.ufrn.ai_service.Service.RagUserService;
 public class RestChatController {
     private final ChatService chatService;
     private final RagUserService ragUserService;
+    private final McpChatService mcpChatService;
 
-    public RestChatController(ChatService chatService, RagUserService ragUserService) {
+    public RestChatController(ChatService chatService, RagUserService ragUserService, McpChatService mcpChatService) {
         this.chatService = chatService;
         this.ragUserService = ragUserService;
+        this.mcpChatService = mcpChatService;
     }
 
     @GetMapping("dumb")
@@ -27,8 +30,13 @@ public class RestChatController {
     }
 
     @GetMapping()
-    public String getChatAnswer(@RequestParam String prompt) {
+    public String getUserMcpChatAnswer(@RequestParam String prompt) {
         return chatService.getChatAnswer(prompt);
+    }
+
+    @GetMapping("mcp")
+    public String getChatAnswer(@RequestParam String prompt) {
+        return mcpChatService.getChatAnswer(prompt);
     }
 
     @GetMapping("dumb-users")
