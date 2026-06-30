@@ -41,7 +41,6 @@ public class UserTools {
     Não use esta ferramenta se for necessário obter detalhes dos usuários.
     """)
     public int allUsersSize() {
-        System.out.println("Inside all users size");
         List<User> users = service.all();
         return users.size();
     }

@@ -23,7 +23,10 @@ public class AIController {
     // With memory
     @GetMapping("regular")
     public String Chat(@RequestParam String prompt) {
-        return aiServiceClient.chat(prompt);
+        System.out.println("Chamando AI Service Client");
+        String answer = aiServiceClient.chat(prompt);
+        System.out.println("resposta da IA: " + answer);
+        return answer;
     }
 
     // RAG
