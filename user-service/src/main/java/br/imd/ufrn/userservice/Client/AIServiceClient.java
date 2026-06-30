@@ -14,6 +14,9 @@ public class AIServiceClient {
         this.graphQlClient = graphQlClient;
     }
 
+    // Regular
+
+    // With memory
     public String chat(String prompt) {
         return graphQlClient
             .document("""
@@ -27,6 +30,23 @@ public class AIServiceClient {
             .block();
     }
 
+    // RAG
+
+    // RAG users and memory
+    public String userChat(String prompt) {
+        return graphQlClient
+            .document("""
+                query userChat($prompt: String!) {
+                    userChat(prompt: $prompt)
+                }
+            """)
+            .variable("prompt", prompt)
+            .retrieve("userChat")
+            .toEntity(String.class)
+            .block();
+    }
+
+    // Get Search Results (prompt, answer and context)
     public SearchResult detailsUserChat(String prompt) {
         return graphQlClient
             .document("""
@@ -44,6 +64,7 @@ public class AIServiceClient {
             .block();
     }
 
+    // Get Search Results (only context)
     public String contextUserChat(String prompt) {
         return graphQlClient
             .document("""
@@ -61,17 +82,32 @@ public class AIServiceClient {
             .block();
     }
 
-    public String userChat(String prompt) {
+    // Add users to RAG
+    public Boolean addUsers() {
         return graphQlClient
             .document("""
-                query userChat($prompt: String!) {
-                    userChat(prompt: $prompt)
+                mutation {
+                    addUsers
+                }
+            """)
+            .retrieve("addUsers")
+            .toEntity(Boolean.class)
+            .block();
+    }
+
+    // MCP
+
+    // MCP users no memory
+    public String mcpChat(String prompt) {
+        return graphQlClient
+            .document("""
+                query mcpChat($prompt: String!) {
+                    mcpChat(prompt: $prompt)
                 }
             """)
             .variable("prompt", prompt)
-            .retrieve("userChat")
+            .retrieve("mcpChat")
             .toEntity(String.class)
             .block();
     }
-    
 }

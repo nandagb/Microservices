@@ -1,6 +1,7 @@
 package br.imd.ufrn.userservice.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,23 +18,45 @@ public class AIController {
         this.aiServiceClient = aiServiceClient;
     }
 
+    // Regular
+    
+    // With memory
     @GetMapping("regular")
     public String Chat(@RequestParam String prompt) {
         return aiServiceClient.chat(prompt);
     }
 
+    // RAG
+
+    // RAG users and memory
+    @GetMapping("user")
+    public String userChat(@RequestParam String prompt) {
+        return aiServiceClient.userChat(prompt);
+    }
+
+    // Get Search Results (prompt, answer and context)
     @GetMapping("details-user")
     public SearchResult detailsUserChat(@RequestParam String prompt) {
         return aiServiceClient.detailsUserChat(prompt);
     }
 
+    // Get Search Results (only context)
     @GetMapping("context-user")
     public String promptUserChat(@RequestParam String prompt) {
         return aiServiceClient.contextUserChat(prompt);
     }
 
-    @GetMapping("user")
-    public String userChat(@RequestParam String prompt) {
-        return aiServiceClient.userChat(prompt);
+    // Add users to RAG
+    @PostMapping("add-users")
+    public void addAllUsers() {
+        aiServiceClient.addUsers();
+    }
+
+    // MCP
+
+    // MCP users no memory
+    @GetMapping("mcp-users")
+    public String mcpChat(@RequestParam String prompt) {
+        return aiServiceClient.mcpChat(prompt);
     }
 }

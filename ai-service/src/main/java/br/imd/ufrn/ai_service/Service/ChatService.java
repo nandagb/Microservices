@@ -26,6 +26,7 @@ public class ChatService {
         this.chatClient = chatClientBuilder.build();
     }
 
+    // No memory
     public String getDumbChatAnswer(String prompt) {
         return chatClient.prompt()
                 .user(prompt)
@@ -33,6 +34,7 @@ public class ChatService {
                 .content();
     }
 
+    // With memory
     public String getChatAnswer(String prompt) {
         return chatClient.prompt()
                 .advisors(

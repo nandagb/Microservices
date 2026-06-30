@@ -8,6 +8,7 @@ type Query {
     chat(prompt: String!): String
     userChat(prompt: String!): String
     detailsUserChat(prompt: String!) :SearchResult
+    mcpChat(prompt: String!): String
 }
 
 type Mutation {

@@ -33,12 +33,14 @@ public class RagUserService {
         this.vectorStore = vectorStore;
     }
 
+    // Get Search Results (prompt, answer and context)
     public SearchResult getDetailsChatAnswer(String prompt) {
         String closestMatch = usersDAO.findClosestMatch(prompt);
         String answer = chatClient.prompt().user(closestMatch+prompt).call().content();
         return new SearchResult(prompt, answer, closestMatch);
     }
 
+    // RAG users and memory
     public String getChatAnswer(String prompt) {
         return chatClient.prompt()
         .advisors(
@@ -51,6 +53,7 @@ public class RagUserService {
         .user(prompt).call().content();
     }
 
+    // RAG users and no memory
     public String getDumbChatAnswer(String prompt) {
         return chatClient.prompt()
         .advisors(
@@ -61,6 +64,7 @@ public class RagUserService {
         .user(prompt).call().content();
     }
 
+    // Add users to RAG
     public void saveUsers(List<String> users) {
         usersDAO.add(users);
     }
